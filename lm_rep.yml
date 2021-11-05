@@ -1,0 +1,34 @@
+name: lm_rep
+channels:
+- fastai
+- pytorch
+- defaults
+- bioconda
+- dglteam
+- rdkit
+- conda-forge
+dependencies:
+  - python
+  - numpy
+  - pandas
+  - dgl
+  - seaborn
+  # - cudatoolkit=10.1
+  - pytorch==1.7.1
+  - torchvision==0.8.2 # grover
+  - tensorboard # grover
+  - rdkit==2018.09.3
+  - pip
+  - ipykernel
+  - xgboost
+  - selfies
+  - shap
+  - pip:
+    - cirpy
+    - dgllife
+    - nbstripout
+    - nbconvert
+    - wandb
+    - git+https://github.com/bp-kelley/descriptastorus # grover
+    - exmol
+    - notebook
