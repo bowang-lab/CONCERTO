@@ -268,8 +268,15 @@ class CancerMolecules(Dataset):
 			temp = temp[~temp['smiles'].isin(mut['smiles'])]
 			mut_datasets.append(temp)
 
-		mut = pd.concat(mut_datasets)
-		carc = pd.concat(carc_datasets)
+		if mut_datasets:
+			mut = pd.concat(mut_datasets)
+		else:
+			mut = pd.DataFrame(columns=mut.columns)
+
+		if carc_datasets:
+			carc = pd.concat(carc_datasets)
+		else:
+			carc = pd.DataFrame(columns=carc.columns)
 
 		if mut['smiles'].duplicated().sum() != 0:
 			warnings.warn(f"duplicated samples {mut['smiles'].duplicated().sum()} contained in mutagenicity data "
@@ -933,8 +940,13 @@ class ExplainMolecules(torch.utils.data.Dataset):
 		if self.drop_ionic:
 			ionic_mask = smiles_df["smiles"].apply(lambda x: self.is_ionic(x))
 			smiles_df = smiles_df[~ionic_mask]
+
+		# drop carbon defficient things
 		has_too_few_carbons_mask = smiles_df["smiles"].apply(lambda x: self.has_too_few_carbons(x))
 		smiles_df = smiles_df[~has_too_few_carbons_mask]
+		has_too_few_carbons_mask_g = self.grover_fp_df["smiles"].apply(lambda x: self.has_too_few_carbons(x))
+		self.grover_fp_df = self.grover_fp_df[~has_too_few_carbons_mask_g]
+
 		if self.use_grover:
 			grover_df_2 = self.grover_fp_df.copy()
 			grover_df_2.loc[:, "smiles"] = grover_df_2["smiles"].apply(

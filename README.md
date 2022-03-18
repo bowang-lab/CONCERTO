@@ -15,8 +15,10 @@ Molecular carcinogenicity is a preventable cause of cancer, however, most experi
 
 To train CONCERTO:
 
+First you need to download the GROVER repo from https://github.com/adamoyoung/grover and download the model files as indicated under Pretained Model Download header. Then you should be able to train the model with the hyperparameters described below.  
+
 ```
-train.py --atom_pairs_fingerprints=false --batch_size=512 --carc_percentile_to_drop=1 --cross_validation=true --ff_dropout=0.1 --ff_hidden_feats=64 --ff_num_layers=5 --fp_nbits=2048 --gradient_clip_norm=10000 --grover_fp=large --lr=0.00044800187354224327 --lr_decay_factor=0.5 --min_carbon_count=3 --model_type=mlp_fingerprint --mut_pre_training=true --network_weight_decay=0.01 --num_mut_pre_training_loop=2 --patience=20 --torsion_fingerprints=false --wandb_run_dir=/scratch/gobi2/phil
+train.py --atom_pairs_fingerprints=false --batch_size=512 --carc_percentile_to_drop=1 --cross_validation=true --ff_dropout=0.1 --ff_hidden_feats=64 --ff_num_layers=5 --fp_nbits=2048 --gradient_clip_norm=10000 --grover_fp=large --lr=0.00044800187354224327 --lr_decay_factor=0.5 --min_carbon_count=3 --model_type=mlp_fingerprint --mut_pre_training=true --network_weight_decay=0.01 --num_mut_pre_training_loop=2 --patience=20 --torsion_fingerprints=false 
 ```
 
 To conduct counterfactual analysis:
